@@ -13,10 +13,18 @@
 [![Immauss Cybersecurity](https://github.com/immauss/openvas/raw/master/images/ics-hz.png)](https://immauss.com "Immauss Cybersecurity")
 
 
+# Attention !!! #
+# Dec 1, 2021: 21.4.4-06 is now live on hub.docker.com and 'should' resolve all the issues. See below for more detail. #
+
+Thanks,
+Scott
+
+
 # Tags  #
 tag              | Description
 ----------------|-------------------------------------------------------------------
-21.4.3 & latest  | The latest and greatest for amd64 & arm64 based on Debian buster
+mc | This is the first BETA of the multi container build.
+21.4.4-06 | This is the most recent and latest.  
 armv7     | The latest build for ArmV7 with Postgresql11 based on Debian buster
 20.08.04.6 | The last 20.08 image
 beta            | from the latest master source from greenbone. This may or may not work.
@@ -26,8 +34,38 @@ v1.0             | old out of date image for posterity. (Dont` use this one. . .
 
 - - - -
 ## Documentation ##
-The current docs are maintained on github [here](https://github.com/immauss/openvas/tree/master/docs)
+The current docs are maintained on github [here](https://immauss.github.io/openvas/)
+- - - - 
+
+### 13 December 2021 ###
+
+- OK ... it's working. Everything in its own container. Well ... almost. Postfix is running with gvmd. I haven't found away around that yet. If you want to try this out, just pull the git repo, or make a copy of the docker-compose.yml that is in the 'mulit-container' folder. From the same directory as the docker-compose.yml, run: ``` docker-compose up -d ``` 
+- If you try this out, PLEASE let me know. The same image will also run as the original always has. 
+- - - - 
+
+### 3 December 2021 ###
+- After some testing with arm64 image on RPI, I'm making 21.4.4-06 latest. Please let me know if you have any issues. 
+
+-Scott
+
 - - - -
+### 1 December 2021 ###
+# Finally !! #
+- 21.4.4-06 is live!! This resolves a ton of problems and was a total PITA. Greenbone changed the default location of the openvas logging config to /etc/openvas. But the install.md did not get updated. So I was still dropping a config in /usr/local/etc/openvas. This shouldn't have been a big deal, but there was another bug in openvas/gvm-libs that caused openvas to segmentation fault if there is no /etc/openvas/openvas_log.conf.  UGH! Anyway, you should no longer get the warnings about having an old scanner with this one, postfix should work again, and a fully up to date GVM suite. 
+- Next on the list is to finish the multi-container setup and more automation for testing. 
+
+-Scott
+
+- - - -
+### 28 October 2021 ###
+- It has been a while. Greenbone dropped a new a release a week or so ago, and it has given me quite the hard time. There was a change ... somehwere ... that causes the openvas scanner to segmentation fault, but only when run in a container. The stable branch does not exhibit this behavior, but the current release does. So .... there is good chance it will get fixd in the next release. In the mean time, I've upgrade everything except openvas scanner to the latest release. In the course of trying to resolve the segfault, I got the notion that there might be a directory missing or directory persmission problem. So I finally took the time to move ALL of the directory structure setup and linking for the volumes into the build process and took it out of the start.sh. (Take a look at the stage2-setup.sh in the scripts folder.) This greatly simplified start.sh and will come in handy as I move to the multiple containers setup. You know, how containers are suppose to be run, one process per container. 
+- So after all that ... new release. For the future, I'm going to fix my versions on the version of gvmd in the build. For this one, that is 21.4.4. And I'll add a "-xx" for my versioning. So today's release will be 21.4.4-01
+- Sorry ... no update to Arm v7 yet.  If someone really needs it, please reach out. 
+
+-Scott
+
+- - - -
+
 ### 26 August 2021 ###
 - Well that was fun. Thanks to [@bricks](https://community.greenbone.net/u/bricks/summary), [@Lukas](https://community.greenbone.net/u/Lukas/summary), [@cybermcm](https://github.com/cybermcm), [@dkade](https://github.com/dkade), [@tedher](https://github.com/tedher), [@grisno](https://github.com/grisno), & [@orhpeus](https://github.com/orpheus) for the discussion and help resolving the socket issues. (Details are [here](https://community.greenbone.net/t/sockets-sockets-sockets/10035) ) In the end, it turns out I missed a permission change on a directory in the move to buster. 
 - So now .... the latest, 21.4.3, and armv7 images are all up-to-date and working properly.  (Don't look at start.sh with too critical an eye right now though. It needs some serious clean up. )
@@ -215,3 +253,4 @@ There is also a new environment variable: SKIPSYNC . This does exactly what it s
 For License info, see the [GNU Affero](https://github.com/immauss/openvas/blob/master/LICENSE) license.
 
 Thu Feb 25 23:59:13 UTC 2021
+
