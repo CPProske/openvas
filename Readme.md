@@ -40,7 +40,12 @@ The current docs are maintained on github [here](https://immauss.github.io/openv
 ### 13 December 2021 ###
 
 - OK ... it's working. Everything in its own container. Well ... almost. Postfix is running with gvmd. I haven't found away around that yet. If you want to try this out, just pull the git repo, or make a copy of the docker-compose.yml that is in the 'mulit-container' folder. From the same directory as the docker-compose.yml, run: ``` docker-compose up -d ``` 
-- If you try this out, PLEASE let me know. The same image will also run as the original always has. 
+- If you try this out, PLEASE let me know. 
+- The same image will also run as the original always has. 
+- Make sure you take a look at the docker-compose.yml first. The current default uses SKIPSYNC=true. (Because I was impatient during testing.) 
+
+-Scott
+
 - - - - 
 
 ### 3 December 2021 ###
