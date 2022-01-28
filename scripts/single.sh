@@ -17,10 +17,10 @@ REDISDBS=${REDISDBS:-512}
 QUIET=${QUIET:-false}
 # use this to rebuild the DB from scratch instead of using the one in the image.
 NEWDB=${NEWDB:-false}
-SKIPSYNC=${SKIPSYNC:-false}
+SKIPSYNC=${SKIPSYNC:-true}
 RESTORE=${RESTORE:-false}
 DEBUG=${DEBUG:-false}
-HTTPS=${HTTPS:-false}
+HTTPS=${HTTPS:-true}
 #GMP=${GMP:-9390}
 GSATIMEOUT=${GSATIMEOUT:-15}
 if [ "$DEBUG" == "true" ]; then
